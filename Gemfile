@@ -46,4 +46,4 @@ group :development do
 end
 
 gem 'slim-rails'
-gem 'requirejs-rails'
+gem 'requirejs-rails', '~> 0.9.5'
