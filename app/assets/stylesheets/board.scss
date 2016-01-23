@@ -1,0 +1,13 @@
+.board {
+  table {
+    background-color: #E8143B;
+    td {
+      -moz-border-radius: 50px/50px;
+      -webkit-border-radius: 50px 50px;
+      border-radius: 50px/50px;
+      background-color: #131010;
+      width:100px;
+      height:100px;
+    }
+  }
+}
