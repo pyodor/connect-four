@@ -29,11 +29,14 @@ define [
       return cell[0]
 
     notifyWinner: (player) ->
-      color = Board.playerColor(player)
-      playerName = color.charAt(0).toUpperCase() + color.slice 1
-      alert "#{playerName} win!"
-      @init()
-      window.ConnectFour.start();
+      setTimeout () ->
+        color = Board.playerColor(player)
+        playerName = color.charAt(0).toUpperCase() + color.slice 1
+        alert "#{playerName} win!"
+        window.ConnectFour.board.init()
+        window.ConnectFour.start();
+      , 100
+
 
     currentMove: (player) ->
       $(".board .current-move img").css {'background-color': Board.playerColor(player)}
