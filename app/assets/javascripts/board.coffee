@@ -19,7 +19,7 @@ define [
         for col in [0...@numCols]
           cell = new Cell row, col
           @cells.push cell
-          tCol += "<td id='#{cell.id}' class='circle'><img/></td>"
+          tCol += "<td id='#{cell.id}'><div class='circle'><div></td>"
 
         @table.append("<tr>#{tCol}</tr>")
 
@@ -39,11 +39,11 @@ define [
 
 
     currentMove: (player) ->
-      $(".board .current-move img").css {'background-color': Board.playerColor(player)}
+      $(".board .current-move .circle").css {'background-color': Board.playerColor(player)}
 
     setCellColor: (cellId) ->
       cell = @findCell(cellId)
-      $("##{cellId}").css {'background-color': cell.getColor()}
+      $("##{cellId} .circle").css {'background-color': cell.getColor()}
 
     @playerColor: (player) ->
       if player == 0 then 'blue' else 'yellow'
