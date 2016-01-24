@@ -13,6 +13,7 @@ define [
       window.ConnectFour = @
 
     start: ->
+      Game.cellUsed = 0
       Game.board = @board
       Game.connectedCells = 0
       @board.currentMove(Game.currentPlayer)
@@ -36,8 +37,13 @@ define [
       if win
         @board.notifyWinner(@currentPlayer)
       else
+        @checkFullBoard()
         @currentPlayer = if @currentCell.getPlayer() == 1 then 0 else 1
         @board.currentMove(@currentPlayer)
+
+    @checkFullBoard: ->
+      if @cellUsed == @board.numRows * @board.numCols
+        @board.notifyNoWinner()
 
     @connectFour: (cellId) ->
       nextCell = @board.findCell cellId
@@ -68,9 +74,10 @@ define [
       [..., row, col] = @currentCell.idSplit()
 
       # scan diagonal ( \ ) get the origin
-      done = false
       y = parseInt(row)
       x = parseInt(col)
+
+      done = if y == 0 and x == 0 then true else false
       until done
         y -= 1
         x -= 1
@@ -99,9 +106,10 @@ define [
       [..., row, col] = @currentCell.idSplit()
 
       # scan diagonal ( / ) get the origin
-      done = false
       y = parseInt(row)
       x = parseInt(col)
+
+      done = if y == 0 and x == @board.numCols - 1 then true else false
       until done
         y -= 1
         x += 1
@@ -145,3 +153,4 @@ define [
         cell.setPlayer @currentPlayer
         @board.setCellColor(@currentCell.id)
         @successDrop =  true
+        @cellUsed += 1

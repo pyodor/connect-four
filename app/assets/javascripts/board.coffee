@@ -37,6 +37,12 @@ define [
         window.ConnectFour.start();
       , 100
 
+    notifyNoWinner: ->
+      setTimeout () ->
+        alert "No winner!"
+        window.ConnectFour.board.init()
+        window.ConnectFour.start();
+      , 100
 
     currentMove: (player) ->
       $(".board .current-move .circle").css {'background-color': Board.playerColor(player)}
