@@ -1,21 +1,27 @@
 define [
-  'cell'
+  'cell',
 ],
 
-(Cell) ->
+(Cell, Board) ->
   class Cell
 
     constructor: (@row, @col) ->
       @id = "cell_#{@row}_#{@col}"
 
     isEmpty: ->
-      not @player_id?
+      not @playerId?
 
     setPlayer: (id) ->
-      @player_id = id
+      @playerId = id
 
     getPlayer: ->
-      @player_id
+      @playerId
 
     getColor: ->
-      if @player_id == 0 then 'blue' else 'yellow'
+      if @playerId == 0 then 'blue' else 'yellow'
+
+    idSplit: ->
+      @id.split('_')
+
+    idJoin: (row, col) ->
+      "cell_#{row}_#{col}"

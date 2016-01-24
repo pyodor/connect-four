@@ -2,28 +2,45 @@ define [
   'jquery'
   'cell'
   'board'
+  'game'
 ],
 
-($, Cell, Board) ->
+($, Cell, Board, Game) ->
   class Board
-    cells: []
+    constructor: (@table, @numRows, @numCols) ->
+      @init()
 
-    constructor: (@table, @num_rows, @num_cols) ->
-      t_row = ""
-      for row in [0...@num_rows]
-        t_col = ""
-        for col in [0...@num_cols]
+    init: ->
+      @cells = []
+      @table.html ""
+      tRow = ""
+      for row in [0...@numRows]
+        tCol = ""
+        for col in [0...@numCols]
           cell = new Cell row, col
           @cells.push cell
-          t_col += "<td id='#{cell.id}'><img/></td>"
+          tCol += "<td id='#{cell.id}' class='circle'><img/></td>"
 
-        @table.append("<tr>#{t_col}</tr>")
+        @table.append("<tr>#{tCol}</tr>")
 
-    findCell: (cell_id) ->
+    findCell: (cellId) ->
       cell = $.grep @cells, (cell) ->
-        return cell.id == cell_id
+        return cell.id == cellId
       return cell[0]
 
-    setCellColor: (cell_id) ->
-      cell = @findCell(cell_id)
-      $("##{cell_id}").css {'background-color': cell.getColor()}
+    notifyWinner: (player) ->
+      color = Board.playerColor(player)
+      playerName = color.charAt(0).toUpperCase() + color.slice 1
+      alert "#{playerName} win!"
+      @init()
+      window.ConnectFour.start();
+
+    currentMove: (player) ->
+      $(".board .current-move img").css {'background-color': Board.playerColor(player)}
+
+    setCellColor: (cellId) ->
+      cell = @findCell(cellId)
+      $("##{cellId}").css {'background-color': cell.getColor()}
+
+    @playerColor: (player) ->
+      if player == 0 then 'blue' else 'yellow'
