@@ -1,0 +1,6 @@
+{
+  "name": "Connect Four Game",
+  "description": "Connect Four in CoffeeScript",
+  "repository": "https://github.com/pyodor/connect-four.git",
+  "keywords": ["CoffeeScript", "Rails", "Ruby", "Connect Four"]
+}
